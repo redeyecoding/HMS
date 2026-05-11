@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeffrey McIntyre | Human Movement Specialist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #edf2f7; 
+            --card-bg: #ffffff; 
+            --primary: #0f2c59; 
+            --secondary: #3b82f6; 
+            --accent: #ff4a3a; 
+            --text-dark: #1a202c; 
+            --text-muted: #718096; 
+            --border-light: #e2e8f0; 
+            --shadow: 0 10px 40px rgba(15, 44, 89, 0.08); 
+            --radius: 12px; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            font-family: 'Lato', sans-serif; 
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            background-image: 
+                radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(255, 74, 58, 0.04) 0%, transparent 50%);
+        }
+
+        h1, h2, .subtitle, .nav-btn, .job-title {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 900px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+
+        @media (min-width: 768px) {
+            header { padding: 45px; }
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary), var(--accent));
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+        }
+
+        @media (min-width: 768px) {
+            h1 { font-size: 3rem; }
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 1.5px;
+        }
+
+        @media (min-width: 768px) {
+            .subtitle { font-size: 1.3rem; gap: 12px; }
+        }
+
+        .contact-info {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 18px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            background: rgba(59, 130, 246, 0.1); 
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--secondary);
+            letter-spacing: 0.5px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+            padding: 12px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            flex: 1 1 auto;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .nav-btn { font-size: 1.05rem; padding: 14px 26px; flex: 0 1 auto; }
+        }
+
+        .nav-btn:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(15, 44, 89, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .content-area {
+            min-height: 400px;
+            position: relative;
+        }
+
+        .tab-content {
+            display: none;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            border-left: 6px solid var(--secondary);
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        @media (min-width: 768px) {
+            .card { padding: 35px; }
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 45px rgba(15, 44, 89, 0.12);
+        }
+
+        .card-accent {
+            border-left-color: var(--accent);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        @media (min-width: 768px) {
+            h2 { font-size: 1.8rem; }
+        }
+
+        p { margin-bottom: 16px; font-size: 1.05rem; color: var(--text-dark); font-weight: 400; }
+
+        @media (min-width: 768px) {
+            p { font-size: 1.15rem; }
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .job-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .job-date {
+            color: #ffffff;
+            font-family: 'Oswald', sans-serif; 
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: var(--primary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            letter-spacing: 1px;
+        }
+
+        .card-accent .job-date {
+            background: var(--accent);
+        }
+
+        .job-company {
+            color: var(--secondary);
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            color: var(--secondary) !important;
+            background: rgba(59, 130, 246, 0.08);
+            padding: 10px 14px;
+            border-radius: 6px;
+            text-decoration: none !important;
+            border: 1px solid rgba(59, 130, 246, 0.2) !important;
+            margin-top: 4px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .doc-link:hover {
+            background: var(--secondary);
+            color: #ffffff !important;
+        }
+
+        ul { list-style: none; padding-left: 0; }
+        
+        li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+
+        @media (min-width: 768px) {
+            li { padding-left: 32px; font-size: 1.1rem; }
+        }
+
+        li::before {
+            content: "»"; 
+            position: absolute;
+            left: 6px;
+            top: 1px;
+            color: var(--accent);
+            font-size: 1.4rem;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .highlight { 
+            color: var(--primary); 
+            font-weight: 700;
+            background: rgba(59, 130, 246, 0.1); 
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .progress-container { margin-top: 18px; }
+        .progress-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; font-weight: 700; color: var(--primary); font-family: 'Oswald', sans-serif; text-transform: uppercase;}
+        .progress-bar { height: 10px; background: var(--border-light); border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--secondary), var(--accent)); width: 80%; border-radius: 10px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <header>
+            <h1>Jeffrey McIntyre</h1>
+            <div class="subtitle">
+                <span>Systems Reliability</span>
+                <span style="color: var(--border-light);">|</span>
+                <span style="color: var(--accent);">Holistic Movement Science</span>
+            </div>
+            <div class="contact-info">
+                <span class="pill">347-447-4698</span>
+                <span class="pill">RedEyeCoding@gmail.com</span>
+            </div>
+        </header>
+
+        <nav>
+            <button class="nav-btn active" onclick="switchTab('overview')">Clinical Summary</button>
+            <button class="nav-btn" onclick="switchTab('fitness')">Movement Protocol</button>
+            <button class="nav-btn" onclick="switchTab('media')">Digital Education</button>
+            <button class="nav-btn" onclick="switchTab('engineering')">Engineering Roots</button>
+            <button class="nav-btn" onclick="switchTab('skills')">Diagnostic Matrix</button>
+        </nav>
+
+        <div class="content-area">
+            
+            <div id="overview" class="tab-content active">
+                <div class="card">
+                    <h2>Professional Logic</h2>
+                    <p>I have 14 years of experience as a systems engineer and 25 years as a high-level athlete. I look at the human body through the lens of holistic system reliability—identifying mechanical "glitches" like poor hip rotation or joint instability before they lead to structural failure.</p>
+                    <p>I am transitioning from fixing servers to fixing human movement. I have a proven eye for isolating root-cause biomechanical failures and a deep respect for technical accuracy and clinical documentation.</p>
+                </div>
+                
+                <div class="card card-accent">
+                    <h2 style="color: var(--accent);">Active Credentials</h2>
+                    
+                    <div class="job-header">
+                        <span class="job-title">Human Movement Specialist (HMS)</span>
+                        <span class="job-date">Expected July 2026</span>
+                    </div>
+                    <div class="job-company">Brookbush Institute</div>
+                    <a href="Jeffrey-McIntyre-HMS-Transcript.pdf" target="_blank" class="doc-link">📄 *Click Here* To View Clinical Transcript [PDF]</a>
+                    
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span>Completion Status</span>
+                            <span style="color: var(--accent);">80%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid var(--border-light); margin: 24px 0;">
+
+                    <div class="job-header">
+                        <span class="job-title">Certified Personal Trainer (CPT)</span>
+                        <span class="job-date">Active (2025)</span>
+                    </div>
+                    <div class="job-company">Brookbush Institute</div>
+                    <a href="Jeffrey-McIntyre-CPT-Brookbush.pdf" target="_blank" class="doc-link" style="margin-bottom: 0;">📄 *Click Here* To Verify Active Certification [PDF]</a>
+                </div>
+            </div>
+
+            <div id="fitness" class="tab-content">
+                <div class="card card-accent">
+                    <div class="job-header">
+                        <span class="job-title">Metabolic Reboot & System Stabilization</span>
+                        <span class="job-date">Current (14+ Weeks)</span>
+                    </div>
+                    <div class="job-company">Independent Case Study</div>
+                    <ul>
+                        <li><span class="highlight">The Challenge:</span> Rebuilding the movement foundation for a high-BMI client returning from a 10-year hiatus. System presented with active UBD and offline DCFs.</li>
+                        <li><span class="highlight">The Strategy:</span> Bypassed standard beginner routines for high-efficiency circuits. Integrated foundational boxing to drive cardio and engagement without joint overload.</li>
+                        <li><span class="highlight">The Result:</span> Client dropped 10 lbs while actively breaking physical barriers. Proved that smart load management and dynamic programming beat high-intensity burnout.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="job-header">
+                        <span class="job-title">Plantar Fasciitis Corrective Intervention</span>
+                        <span class="job-date">2025 – 2026</span>
+                    </div>
+                    <div class="job-company">Independent Case Study</div>
+                      <ul>
+                        <li><span class="highlight">The Setup:</span> Took over a chronic Plantar Fasciitis case where standard physical therapy interventions and previous exercises had stalled out.</li>
+                        <li><span class="highlight">The Fix:</span> Re-engineered their lower-extremity mechanics from the ground up using a strict Release, Activation, and Integration framework. Successfully cleared the compensations and restored a pain-free gait.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="job-header">
+                        <span class="job-title">Technique Instructor (Modern Arnis)</span>
+                        <span class="job-date">2022 – 2023</span>
+                    </div>
+                    <div class="job-company">Village Martial Arts Institute (New York City)</div>
+                    <ul>
+                        <li>Improved student coordination and hand speed by developing drills focused on stabilizing the wrist, elbow, and shoulder joints.</li>
+                        <li>Taught weapon-based coordination, ensuring joints remained centered during high-speed rotational movements.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent">
+                    <div class="job-header">
+                        <span class="job-title">Kinematic Striking Practitioner (Boxing)</span>
+                        <span class="job-date">2018 – 2020</span>
+                    </div>
+                    <div class="job-company">Gleason's Gym (New York City)</div>
+                    <ul>
+                        <li>Dedicated two years strictly to the mechanical deconstruction of boxing, analyzing rotational force generation and cross-body kinetic sequencing.</li>
+                        <li>Opted out of active competition to prioritize pure movement analysis, studying how the lower body generates torque that transfers efficiently through the core and into the upper extremities.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="job-header">
+                        <span class="job-title">Senior Practitioner & Technique Coach</span>
+                        <span class="job-date">2013 – 2017</span>
+                    </div>
+                    <div class="job-company">Coban's Muay Thai Camp (New York City)</div>
+                    <ul>
+                        <li>Accumulated thousands of rounds of high-resistance sparring to stress-test biomechanics against dozens of different body types.</li>
+                        <li>Lowered student injury rates by implementing a "form-first" mechanical audit during initial training phases.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="job-header">
+                        <span class="job-title">Professional BMX Athlete (Flatland)</span>
+                        <span class="job-date">2005 – 2012</span>
+                    </div>
+                    <div class="job-company">Self-Directed</div>
+                    <ul>
+                        <li>Maintained a 7-year pro career through self-directed recovery and mechanical maintenance.</li>
+                        <li>Mastered elite-level proprioception and kinetic chain deceleration mechanics.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="media" class="tab-content">
+                <div class="card card-accent">
+                    <div class="job-header">
+                        <span class="job-title">Biomechanical Technical Visualizer</span>
+                        <span class="job-date">Current</span>
+                    </div>
+                    <div class="job-company">
+                        <a href="https://www.youtube.com/@BodyDouble-Workout" target="_blank">BodyDouble (Digital Education Platform)</a>
+                    </div>
+                    <ul>
+                        <li>Designing high-retention technical visualizers on YouTube to translate movement science into digestible digital formats.</li>
+                        <li>Utilizing a voice-free schematic aesthetic to map kinetic chains and identify structural "Core Leaks" for mass audience education.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="engineering" class="tab-content">
+                <div class="card card-accent">
+                    <div class="job-header">
+                        <span class="job-title">Technical Operations Engineer</span>
+                        <span class="job-date">June 2022 – May 2025</span>
+                    </div>
+                    <div class="job-company">Salesloft (Remote Tier 3 Engineer)</div>
+                    <ul>
+                        <li><span class="highlight">Risk Management:</span> Protected $4.26M in annual revenue and prevented an additional $2.2M in customer loss by serving as the final technical anchor for enterprise-level failures.</li>
+                        <li><span class="highlight">Efficiency Optimization:</span> Engineered a one-week manual maintenance and deployment cycle down to 10 seconds of automated code using Python.</li>
+                        <li><span class="highlight">Patient Education Equivalent:</span> Hosted live webinars and authored technical documentation to break down complex concepts for non-technical teams.</li>
+                        <li>Operated within a collaborative four-person team environment.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="job-header">
+                        <span class="job-title">Carrier-Grade Operations Engineer</span>
+                        <span class="job-date">March 2013 – June 2022</span>
+                    </div>
+                    <div class="job-company">Vocal IP (New York City)</div>
+                    <ul>
+                        <li><span class="highlight">Uptime & Reliability:</span> Maintained 99.9% uptime for carrier-grade networks serving high-compliance healthcare and financial clients for nearly a decade.</li>
+                        <li><span class="highlight">Hardware Diagnostics:</span> Primary engineer for physical hardware builds, configuration, and full-stack debugging of Cisco, Fortigate, and Juniper infrastructure.</li>
+                        <li>Managed large-scale VoIP deployments, ensuring seamless system communication across complex infrastructures.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="job-header">
+                        <span class="job-title">Mechanical Technician & Educator</span>
+                        <span class="job-date">2002 – 2006</span>
+                    </div>
+                    <div class="job-company">REcycle-A-Bicycle (New York City)</div>
+                    <ul>
+                        <li>Taught 5th graders basic mechanical repairs at The School for the Urban Environment (2003-2004).</li>
+                        <li>Developed a pedagogical framework to teach root-cause mechanical troubleshooting.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="skills" class="tab-content">
+                <div class="card">
+                    <h2>Clinical Biomechanics</h2>
+                    <ul>
+                        <li><span class="highlight">Movement Assessment:</span> Identifying poor alignment and compensations.</li>
+                        <li><span class="highlight">Form Correction:</span> Delivering simple, actionable cues to fix technique.</li>
+                        <li><span class="highlight">System Diagnostics:</span> Root-cause analysis for UBD, LPHCD, and POS dysfunction.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent">
+                    <h2>Engineering & Operations</h2>
+                    <ul>
+                        <li><span class="highlight">Operational Standards:</span> Experienced in high-accuracy data logging and charting.</li>
+                        <li><span class="highlight">Automation:</span> Python scripting and isolating variables to diagnose system-wide failures.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
